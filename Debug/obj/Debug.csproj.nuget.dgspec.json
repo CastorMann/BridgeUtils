@@ -1,0 +1,239 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Users\\casto\\source\\repos\\Bridge\\Debug\\Debug.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\casto\\source\\repos\\Bridge\\BiddingUtilities\\BiddingUtilities.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\casto\\source\\repos\\Bridge\\BiddingUtilities\\BiddingUtilities.csproj",
+        "projectName": "BiddingUtilities",
+        "projectPath": "C:\\Users\\casto\\source\\repos\\Bridge\\BiddingUtilities\\BiddingUtilities.csproj",
+        "packagesPath": "C:\\Users\\casto\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\casto\\source\\repos\\Bridge\\BiddingUtilities\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\casto\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.0": {
+            "projectReferences": {
+              "C:\\Users\\casto\\source\\repos\\Bridge\\BridgeUtilities\\BridgeUtilities.csproj": {
+                "projectPath": "C:\\Users\\casto\\source\\repos\\Bridge\\BridgeUtilities\\BridgeUtilities.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.0": {
+          "dependencies": {
+            "NETStandard.Library": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.0.3, )",
+              "autoReferenced": true
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.403\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\casto\\source\\repos\\Bridge\\BridgeUtilities\\BridgeUtilities.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\casto\\source\\repos\\Bridge\\BridgeUtilities\\BridgeUtilities.csproj",
+        "projectName": "BridgeUtilities",
+        "projectPath": "C:\\Users\\casto\\source\\repos\\Bridge\\BridgeUtilities\\BridgeUtilities.csproj",
+        "packagesPath": "C:\\Users\\casto\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\casto\\source\\repos\\Bridge\\BridgeUtilities\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\casto\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.0": {
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.0": {
+          "dependencies": {
+            "NETStandard.Library": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.0.3, )",
+              "autoReferenced": true
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.403\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\casto\\source\\repos\\Bridge\\DDSUtilities\\DDSUtilities.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\casto\\source\\repos\\Bridge\\DDSUtilities\\DDSUtilities.csproj",
+        "projectName": "DDSUtilities",
+        "projectPath": "C:\\Users\\casto\\source\\repos\\Bridge\\DDSUtilities\\DDSUtilities.csproj",
+        "packagesPath": "C:\\Users\\casto\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\casto\\source\\repos\\Bridge\\DDSUtilities\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\casto\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.0": {
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.0": {
+          "dependencies": {
+            "NETStandard.Library": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.0.3, )",
+              "autoReferenced": true
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.403\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\casto\\source\\repos\\Bridge\\Debug\\Debug.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\casto\\source\\repos\\Bridge\\Debug\\Debug.csproj",
+        "projectName": "Debug",
+        "projectPath": "C:\\Users\\casto\\source\\repos\\Bridge\\Debug\\Debug.csproj",
+        "packagesPath": "C:\\Users\\casto\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\casto\\source\\repos\\Bridge\\Debug\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\casto\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "projectReferences": {
+              "C:\\Users\\casto\\source\\repos\\Bridge\\BiddingUtilities\\BiddingUtilities.csproj": {
+                "projectPath": "C:\\Users\\casto\\source\\repos\\Bridge\\BiddingUtilities\\BiddingUtilities.csproj"
+              },
+              "C:\\Users\\casto\\source\\repos\\Bridge\\BridgeUtilities\\BridgeUtilities.csproj": {
+                "projectPath": "C:\\Users\\casto\\source\\repos\\Bridge\\BridgeUtilities\\BridgeUtilities.csproj"
+              },
+              "C:\\Users\\casto\\source\\repos\\Bridge\\DDSUtilities\\DDSUtilities.csproj": {
+                "projectPath": "C:\\Users\\casto\\source\\repos\\Bridge\\DDSUtilities\\DDSUtilities.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.403\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

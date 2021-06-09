@@ -1,0 +1,47 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v3.1",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v3.1": {
+      "Debug/1.0.0": {
+        "dependencies": {
+          "BridgeUtilities": "1.0.0",
+          "DDSUtilities": "1.0.0"
+        },
+        "runtime": {
+          "Debug.dll": {}
+        }
+      },
+      "BridgeUtilities/1.0.0": {
+        "runtime": {
+          "BridgeUtilities.dll": {}
+        }
+      },
+      "DDSUtilities/1.0.0": {
+        "runtime": {
+          "DDSUtilities.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Debug/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "BridgeUtilities/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "DDSUtilities/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

@@ -1,0 +1,129 @@
+{
+  "version": 3,
+  "targets": {
+    ".NETCoreApp,Version=v3.1": {
+      "BiddingUtilities/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.0",
+        "dependencies": {
+          "BridgeUtilities": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/BiddingUtilities.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/BiddingUtilities.dll": {}
+        }
+      },
+      "BridgeUtilities/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.0",
+        "compile": {
+          "bin/placeholder/BridgeUtilities.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/BridgeUtilities.dll": {}
+        }
+      },
+      "DDSUtilities/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.0",
+        "compile": {
+          "bin/placeholder/DDSUtilities.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/DDSUtilities.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "BiddingUtilities/1.0.0": {
+      "type": "project",
+      "path": "../BiddingUtilities/BiddingUtilities.csproj",
+      "msbuildProject": "../BiddingUtilities/BiddingUtilities.csproj"
+    },
+    "BridgeUtilities/1.0.0": {
+      "type": "project",
+      "path": "../BridgeUtilities/BridgeUtilities.csproj",
+      "msbuildProject": "../BridgeUtilities/BridgeUtilities.csproj"
+    },
+    "DDSUtilities/1.0.0": {
+      "type": "project",
+      "path": "../DDSUtilities/DDSUtilities.csproj",
+      "msbuildProject": "../DDSUtilities/DDSUtilities.csproj"
+    }
+  },
+  "projectFileDependencyGroups": {
+    ".NETCoreApp,Version=v3.1": [
+      "BiddingUtilities >= 1.0.0",
+      "BridgeUtilities >= 1.0.0",
+      "DDSUtilities >= 1.0.0"
+    ]
+  },
+  "packageFolders": {
+    "C:\\Users\\casto\\.nuget\\packages\\": {}
+  },
+  "project": {
+    "version": "1.0.0",
+    "restore": {
+      "projectUniqueName": "C:\\Users\\casto\\source\\repos\\Bridge\\Debug\\Debug.csproj",
+      "projectName": "Debug",
+      "projectPath": "C:\\Users\\casto\\source\\repos\\Bridge\\Debug\\Debug.csproj",
+      "packagesPath": "C:\\Users\\casto\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\casto\\source\\repos\\Bridge\\Debug\\obj\\",
+      "projectStyle": "PackageReference",
+      "configFilePaths": [
+        "C:\\Users\\casto\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+      ],
+      "originalTargetFrameworks": [
+        "netcoreapp3.1"
+      ],
+      "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "https://api.nuget.org/v3/index.json": {}
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "projectReferences": {
+            "C:\\Users\\casto\\source\\repos\\Bridge\\BiddingUtilities\\BiddingUtilities.csproj": {
+              "projectPath": "C:\\Users\\casto\\source\\repos\\Bridge\\BiddingUtilities\\BiddingUtilities.csproj"
+            },
+            "C:\\Users\\casto\\source\\repos\\Bridge\\BridgeUtilities\\BridgeUtilities.csproj": {
+              "projectPath": "C:\\Users\\casto\\source\\repos\\Bridge\\BridgeUtilities\\BridgeUtilities.csproj"
+            },
+            "C:\\Users\\casto\\source\\repos\\Bridge\\DDSUtilities\\DDSUtilities.csproj": {
+              "projectPath": "C:\\Users\\casto\\source\\repos\\Bridge\\DDSUtilities\\DDSUtilities.csproj"
+            }
+          }
+        }
+      },
+      "warningProperties": {
+        "warnAsError": [
+          "NU1605"
+        ]
+      }
+    },
+    "frameworks": {
+      "netcoreapp3.1": {
+        "imports": [
+          "net461",
+          "net462",
+          "net47",
+          "net471",
+          "net472",
+          "net48"
+        ],
+        "assetTargetFallback": true,
+        "warn": true,
+        "frameworkReferences": {
+          "Microsoft.NETCore.App": {
+            "privateAssets": "all"
+          }
+        },
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.403\\RuntimeIdentifierGraph.json"
+      }
+    }
+  }
+}
