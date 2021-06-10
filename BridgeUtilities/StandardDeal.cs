@@ -23,6 +23,14 @@ namespace BridgeUtilities
          *  
          *  -   ORIGINAL DISTRIBUTION:      Same as above but no value is -1. Does not update when
          *                                  a card is played.
+         *                              
+         *  -   CARDS:                      array int[52], containing instances of class Card, sorted
+         *                                  with each index containing the card with the id of that index.
+         *  
+         *  -   BIDDING:                    List<Bid>, list of all bids in the order that they were made
+         *  
+         *  -   PLAY:                       List<Card>, list of all played cards in the order that they 
+         *                                  were played
          * 
          *              SEE ABSTRACT CLASS FOR OVERRIDEABLE FEATURES
         */
