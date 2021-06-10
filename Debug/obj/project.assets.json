@@ -67,11 +67,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\casto\\source\\repos\\Bridge\\Debug\\Debug.csproj",
+      "projectUniqueName": "C:\\Users\\casto\\OneDrive\\Skrivbord\\Prog Files\\BridgeUtils\\Debug\\Debug.csproj",
       "projectName": "Debug",
-      "projectPath": "C:\\Users\\casto\\source\\repos\\Bridge\\Debug\\Debug.csproj",
+      "projectPath": "C:\\Users\\casto\\OneDrive\\Skrivbord\\Prog Files\\BridgeUtils\\Debug\\Debug.csproj",
       "packagesPath": "C:\\Users\\casto\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\casto\\source\\repos\\Bridge\\Debug\\obj\\",
+      "outputPath": "C:\\Users\\casto\\OneDrive\\Skrivbord\\Prog Files\\BridgeUtils\\Debug\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\casto\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -86,15 +86,16 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
           "projectReferences": {
-            "C:\\Users\\casto\\source\\repos\\Bridge\\BiddingUtilities\\BiddingUtilities.csproj": {
-              "projectPath": "C:\\Users\\casto\\source\\repos\\Bridge\\BiddingUtilities\\BiddingUtilities.csproj"
+            "C:\\Users\\casto\\OneDrive\\Skrivbord\\Prog Files\\BridgeUtils\\BiddingUtilities\\BiddingUtilities.csproj": {
+              "projectPath": "C:\\Users\\casto\\OneDrive\\Skrivbord\\Prog Files\\BridgeUtils\\BiddingUtilities\\BiddingUtilities.csproj"
             },
-            "C:\\Users\\casto\\source\\repos\\Bridge\\BridgeUtilities\\BridgeUtilities.csproj": {
-              "projectPath": "C:\\Users\\casto\\source\\repos\\Bridge\\BridgeUtilities\\BridgeUtilities.csproj"
+            "C:\\Users\\casto\\OneDrive\\Skrivbord\\Prog Files\\BridgeUtils\\BridgeUtilities\\BridgeUtilities.csproj": {
+              "projectPath": "C:\\Users\\casto\\OneDrive\\Skrivbord\\Prog Files\\BridgeUtils\\BridgeUtilities\\BridgeUtilities.csproj"
             },
-            "C:\\Users\\casto\\source\\repos\\Bridge\\DDSUtilities\\DDSUtilities.csproj": {
-              "projectPath": "C:\\Users\\casto\\source\\repos\\Bridge\\DDSUtilities\\DDSUtilities.csproj"
+            "C:\\Users\\casto\\OneDrive\\Skrivbord\\Prog Files\\BridgeUtils\\DDSUtilities\\DDSUtilities.csproj": {
+              "projectPath": "C:\\Users\\casto\\OneDrive\\Skrivbord\\Prog Files\\BridgeUtils\\DDSUtilities\\DDSUtilities.csproj"
             }
           }
         }
@@ -107,6 +108,7 @@
     },
     "frameworks": {
       "netcoreapp3.1": {
+        "targetAlias": "netcoreapp3.1",
         "imports": [
           "net461",
           "net462",
@@ -122,7 +124,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.403\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.101\\RuntimeIdentifierGraph.json"
       }
     }
   }

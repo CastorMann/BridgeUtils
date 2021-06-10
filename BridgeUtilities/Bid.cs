@@ -4,7 +4,7 @@ using System.Text;
 
 namespace BridgeUtilities
 {
-    class Bid
+    public class Bid
     {
         //TODO: Make private and add setters getters
         #region Public attributes

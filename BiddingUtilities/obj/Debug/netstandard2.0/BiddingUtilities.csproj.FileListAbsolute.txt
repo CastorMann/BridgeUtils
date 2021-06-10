@@ -1,0 +1,12 @@
+C:\Users\casto\OneDrive\Skrivbord\Prog Files\BridgeUtils\BiddingUtilities\bin\Debug\netstandard2.0\BiddingUtilities.deps.json
+C:\Users\casto\OneDrive\Skrivbord\Prog Files\BridgeUtils\BiddingUtilities\bin\Debug\netstandard2.0\BiddingUtilities.dll
+C:\Users\casto\OneDrive\Skrivbord\Prog Files\BridgeUtils\BiddingUtilities\bin\Debug\netstandard2.0\BiddingUtilities.pdb
+C:\Users\casto\OneDrive\Skrivbord\Prog Files\BridgeUtils\BiddingUtilities\bin\Debug\netstandard2.0\BridgeUtilities.dll
+C:\Users\casto\OneDrive\Skrivbord\Prog Files\BridgeUtils\BiddingUtilities\bin\Debug\netstandard2.0\BridgeUtilities.pdb
+C:\Users\casto\OneDrive\Skrivbord\Prog Files\BridgeUtils\BiddingUtilities\obj\Debug\netstandard2.0\BiddingUtilities.csprojAssemblyReference.cache
+C:\Users\casto\OneDrive\Skrivbord\Prog Files\BridgeUtils\BiddingUtilities\obj\Debug\netstandard2.0\BiddingUtilities.AssemblyInfoInputs.cache
+C:\Users\casto\OneDrive\Skrivbord\Prog Files\BridgeUtils\BiddingUtilities\obj\Debug\netstandard2.0\BiddingUtilities.AssemblyInfo.cs
+C:\Users\casto\OneDrive\Skrivbord\Prog Files\BridgeUtils\BiddingUtilities\obj\Debug\netstandard2.0\BiddingUtilities.csproj.CoreCompileInputs.cache
+C:\Users\casto\OneDrive\Skrivbord\Prog Files\BridgeUtils\BiddingUtilities\obj\Debug\netstandard2.0\BiddingUtilities.csproj.CopyComplete
+C:\Users\casto\OneDrive\Skrivbord\Prog Files\BridgeUtils\BiddingUtilities\obj\Debug\netstandard2.0\BiddingUtilities.dll
+C:\Users\casto\OneDrive\Skrivbord\Prog Files\BridgeUtils\BiddingUtilities\obj\Debug\netstandard2.0\BiddingUtilities.pdb

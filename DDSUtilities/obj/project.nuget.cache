@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "XuYe9nfiJ3V9QleHN8yS8J9bBfXlfqqEXasglVhfAN+Cu+xhwD4PK1bSvcb28JF28MgRnnPLIKTdv2jY03GOEw==",
+  "dgSpecHash": "j5CxpPTJMoWTsk6n1QWlDxpnMCDSqxBRLXhMc3jPsbnp2DnHSK8PZNDD5cbR7Z4xlQLDLXxrc9oJF27N8ITlQA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\casto\\source\\repos\\Bridge\\DDSUtilities\\DDSUtilities.csproj",
+  "projectFilePath": "C:\\Users\\casto\\OneDrive\\Skrivbord\\Prog Files\\BridgeUtils\\DDSUtilities\\DDSUtilities.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\casto\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
     "C:\\Users\\casto\\.nuget\\packages\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512"

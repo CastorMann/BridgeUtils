@@ -16,3 +16,23 @@ C:\Users\casto\source\repos\Bridge\Debug\obj\Debug\netcoreapp3.1\Debug.pdb
 C:\Users\casto\source\repos\Bridge\Debug\obj\Debug\netcoreapp3.1\Debug.genruntimeconfig.cache
 C:\Users\casto\source\repos\Bridge\Debug\bin\Debug\netcoreapp3.1\DDSUtilities.dll
 C:\Users\casto\source\repos\Bridge\Debug\bin\Debug\netcoreapp3.1\DDSUtilities.pdb
+C:\Users\casto\OneDrive\Skrivbord\Prog Files\BridgeUtils\Debug\obj\Debug\netcoreapp3.1\Debug.csprojAssemblyReference.cache
+C:\Users\casto\OneDrive\Skrivbord\Prog Files\BridgeUtils\Debug\obj\Debug\netcoreapp3.1\Debug.AssemblyInfoInputs.cache
+C:\Users\casto\OneDrive\Skrivbord\Prog Files\BridgeUtils\Debug\obj\Debug\netcoreapp3.1\Debug.AssemblyInfo.cs
+C:\Users\casto\OneDrive\Skrivbord\Prog Files\BridgeUtils\Debug\obj\Debug\netcoreapp3.1\Debug.csproj.CoreCompileInputs.cache
+C:\Users\casto\OneDrive\Skrivbord\Prog Files\BridgeUtils\Debug\obj\Debug\netcoreapp3.1\Debug.dll
+C:\Users\casto\OneDrive\Skrivbord\Prog Files\BridgeUtils\Debug\obj\Debug\netcoreapp3.1\Debug.pdb
+C:\Users\casto\OneDrive\Skrivbord\Prog Files\BridgeUtils\Debug\bin\Debug\netcoreapp3.1\Debug.exe
+C:\Users\casto\OneDrive\Skrivbord\Prog Files\BridgeUtils\Debug\bin\Debug\netcoreapp3.1\Debug.deps.json
+C:\Users\casto\OneDrive\Skrivbord\Prog Files\BridgeUtils\Debug\bin\Debug\netcoreapp3.1\Debug.runtimeconfig.json
+C:\Users\casto\OneDrive\Skrivbord\Prog Files\BridgeUtils\Debug\bin\Debug\netcoreapp3.1\Debug.runtimeconfig.dev.json
+C:\Users\casto\OneDrive\Skrivbord\Prog Files\BridgeUtils\Debug\bin\Debug\netcoreapp3.1\Debug.dll
+C:\Users\casto\OneDrive\Skrivbord\Prog Files\BridgeUtils\Debug\bin\Debug\netcoreapp3.1\Debug.pdb
+C:\Users\casto\OneDrive\Skrivbord\Prog Files\BridgeUtils\Debug\bin\Debug\netcoreapp3.1\BiddingUtilities.dll
+C:\Users\casto\OneDrive\Skrivbord\Prog Files\BridgeUtils\Debug\bin\Debug\netcoreapp3.1\BridgeUtilities.dll
+C:\Users\casto\OneDrive\Skrivbord\Prog Files\BridgeUtils\Debug\bin\Debug\netcoreapp3.1\DDSUtilities.dll
+C:\Users\casto\OneDrive\Skrivbord\Prog Files\BridgeUtils\Debug\bin\Debug\netcoreapp3.1\BiddingUtilities.pdb
+C:\Users\casto\OneDrive\Skrivbord\Prog Files\BridgeUtils\Debug\bin\Debug\netcoreapp3.1\BridgeUtilities.pdb
+C:\Users\casto\OneDrive\Skrivbord\Prog Files\BridgeUtils\Debug\bin\Debug\netcoreapp3.1\DDSUtilities.pdb
+C:\Users\casto\OneDrive\Skrivbord\Prog Files\BridgeUtils\Debug\obj\Debug\netcoreapp3.1\Debug.csproj.CopyComplete
+C:\Users\casto\OneDrive\Skrivbord\Prog Files\BridgeUtils\Debug\obj\Debug\netcoreapp3.1\Debug.genruntimeconfig.cache

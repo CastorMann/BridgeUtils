@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using BridgeUtilities;
 using DDSUtilities;
-using System.Text.Json;
 
 namespace Debug
 {
@@ -10,7 +9,10 @@ namespace Debug
     {
         static void Main(string[] args)
         {
-            UnitTests.TestBidding();
+            StandardDeal deal = new StandardDeal(1);
+            deal.Print();
+            Console.WriteLine(deal);
+            Console.WriteLine(deal.ToDDFormat());
         }
 
     }

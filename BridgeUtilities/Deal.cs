@@ -4,223 +4,64 @@ using System.Text;
 
 namespace BridgeUtilities
 {
-    public class Deal
+    public abstract class Deal
     {
-        public readonly int id;
-        public readonly int[] distribution = new int[52];
-        public readonly int[] original_distribution = new int[52];
+        #region Attributes
+        public int id;
+        public int[] distribution = new int[52];
+        public int[] original_distribution = new int[52];
 
-        public int trump = 4;
-        public int playerOnTurn;
-        public int NSTricks = 0;
-        public int EWTricks = 0;
-
-        public bool isBiddingState = true;
-
-        #region Private attributes
-        private readonly Card[] cards = new Card[52];
-        private readonly List<Bid> bidding = new List<Bid>();
-        private readonly List<Card> play = new List<Card>();
-
-        private const string DENOMINATIONS = "CDHSN";
-        private const string SUITS = "CDHS"; // Unnecassary ??
-        private const string RANKS = "23456789TJQKA";
+        public Card[] cards = new Card[52];
+        public List<Bid> bidding = new List<Bid>();
+        public List<Card> play = new List<Card>();
         #endregion
 
-        #region Constructors
-        public Deal(int id)
+        #region Public Methods
+
+        #region Utilities
+        public void Setup(int id)
         {
             this.id = id;
-            playerOnTurn = (this.id - 1) % 4;
-            Setup();
-            Shuffle();
-            UpdateOriginalDistribution();
-            Console.WriteLine("New deal created");
-        }
-
-        public Deal(string deal)
-        {
-            Setup();
-            string[] data = deal.Split('|');
-            id = int.Parse(data[0]);
-            playerOnTurn = (id - 1) % 4;
-            string[] dist = data[1].Split('.');
-            for (int i = 0; i < 52; i++) distribution[i] = int.Parse(dist[i]);
-            string[] bids = data[2].Split('.');
-            for (int i = 0; i < bids.Length; i++) MakeBid(int.Parse(bids[i]));
-            string[] plays = data[3].Split('.');
-            for (int i = 0; i < plays.Length; i++) PlayCard(int.Parse(plays[i]));
-            UpdateOriginalDistribution();
-
-        }
-        #endregion
-
-        #region Private methods
-
-        /// <summary>
-        /// Setup of the deal. Deals cards and shuffles.
-        /// </summary>
-        private void Setup()
-        {
             for (int i = 0; i < 52; i++)
             {
                 distribution[i] = i / 13;
+                original_distribution[i] = i / 13;
                 cards[i] = new Card(i);
             }
-            UpdateOriginalDistribution();
         }
 
-        /// <summary>
-        /// Shuffles the cards. NOTE: Only the distribution attribute will be changed!
-        /// </summary>
-        /// <param name="exceptions">A list of indeces to not be shuffled</param>
-        public void Shuffle(List<int> exceptions = null)    //TODO: Move to public ???
+        public virtual int Score()
+        {
+            Contract contract = GetContract();
+            if (contract == null) throw new Exception("Bidding is not over");
+            if (NSTricks + EWTricks != 13) throw new Exception("Play is not over");
+            return contract.Score(contract.declarer % 2 == 0 ? NSTricks : EWTricks);
+        }
+
+        public virtual void Shuffle()
         {
             for (int i = 0; i < 52; i++)
             {
                 int idx = new Random().Next(i, 52);
-                if (exceptions != null && (exceptions.Contains(i) || exceptions.Contains(idx))) continue;
                 int temp = distribution[idx];
                 distribution[idx] = distribution[i];
                 distribution[i] = temp;
             }
-            UpdateOriginalDistribution();
-        }
-
-        public void Shuffle(int[] distribution)
-        {
-            for (int i = 0; i < 52; i++)
-            {
-                this.distribution[i] = distribution[i];
-            }
-            UpdateOriginalDistribution();
-
-        }
-
-        private void UpdateOriginalDistribution()
-        {
             for (int i = 0; i < 52; i++)
             {
                 original_distribution[i] = distribution[i];
             }
         }
+        #endregion
 
-        private string GetSuitOnLead()
-        {
-            if (play.Count % 4 != 0)
-            {
-                return play[play.Count - play.Count % 4].suit;
-            }
-            return null;
-        }
+        #region Boolean Methods
 
-        private Card GetWinnerOfTrick(Card card1, Card card2, Card card3, Card card4)
-        {
-            string s = card1.suit;
-            string t = DENOMINATIONS[trump].ToString();
-            return card1.Compare(card2, s, t).Compare(card3, s, t).Compare(card4, s, t);
-        }
-
-        /// <summary>
-        /// Updates the trump suit according to the bidding.
-        /// </summary>
-        public void UpdateTrump()
-        {
-            // TODO: LÄS BAKIFRÅN FÖR AT SPARA EXEKVERINGSTID, BREAK VID FÖRSTA FÄRG/NT BUD (id > 2)
-            if (!IsBiddingOver())
-            {
-                trump = 4;
-                return;
-            }
-            foreach (Bid bid in bidding)
-            {
-                if (bid.denom != null) trump = DENOMINATIONS.IndexOf(bid.denom);
-            }
-        }
-
-        /// <summary>
-        /// Updates the number of tricks taken by each side according to the play.
-        /// </summary>
-        public void UpdateTricks()
-        {
-            UpdateTrump(); // Unnecessary ??
-            NSTricks = 0;
-            EWTricks = 0;
-
-            for (int trick = 0; trick < play.Count / 4; trick++)
-            {
-                Card winner = GetWinnerOfTrick(play[trick * 4], play[trick * 4 + 1], play[trick * 4 + 2], play[trick * 4 + 3]);
-                if (winner.playedBy % 2 == 0) NSTricks++;
-                else EWTricks++;
-            }
-        }
-
-        /// <summary>
-        /// Updates the player on turn according to the play.
-        /// </summary>
-        public void UpdatePlayerOnTurn()
-        {
-            // If play has not yet started
-            if (play.Count == 0)
-            {
-                // If bidding is over - all has bid at least once and last 4 bids are pass (id == 0)
-                if (IsBiddingOver())
-                {
-                    playerOnTurn = GetLeader();
-                    return;
-                }
-
-                // Bidding is not over
-                playerOnTurn = (id + bidding.Count - 1) % 4; // Logic bugs here?? yes it was smh...
-                return;
-            }
-
-            // Play has started - bidding is over and at least one card has been played
-            if (play.Count % 4 == 0)
-            {
-                UpdateTrump();  // Unnecessary?
-                playerOnTurn = GetWinnerOfTrick(play[play.Count - 4], play[play.Count - 3], play[play.Count - 2], play[play.Count - 1]).playedBy;
-                return;
-            }
-            playerOnTurn = (play[play.Count - 1].playedBy + 1) % 4;
-        }
-
-        public int GetLeader()
-        {
-            // TODO: IMPLEMENT IN GETCONTRACT FUNCTION
-            int declSide = -1;
-            string trumpSuit = null;
-            for (int i = bidding.Count - 1; i >= 0; i--)
-            {
-                if (bidding[i].id > 2)
-                {
-                    declSide = bidding[i].bidBy % 2;
-                    trumpSuit = bidding[i].denom;
-                    break;
-                }
-            }
-            foreach (Bid bid in bidding)
-            {
-                if (bid.denom == trumpSuit && bid.bidBy % 2 == declSide)
-                {
-                    return (bid.bidBy + 1) % 4;
-                }
-            }
-            throw new Exception("Code should not be able to reach this point... logic bugs???");
-        }
-
-        public int GetTrump()
-        {
-            UpdateTrump();
-            return trump;
-        }
-
-        private bool IsBiddingOver()
+        public virtual bool IsBiddingOver()
         {
             return bidding.Count > 3 && bidding[bidding.Count - 1].id == 0 && bidding[bidding.Count - 2].id == 0 && bidding[bidding.Count - 3].id == 0;
         }
 
-        private bool PlayerHasSuit(int playerOnTurn, int suit)
+        public virtual bool PlayerHasSuit(int playerOnTurn, int suit)
         {
             for (int i = 13 * suit; i < 13 * suit + 13; i++)
             {
@@ -229,9 +70,116 @@ namespace BridgeUtilities
             return false;
         }
 
-
-        public int GetLastBidId()
+        public virtual bool IsBidValid(int bid)
         {
+            if (IsBiddingOver()) return false;
+            if (bid < 0) return false;
+            if (bid == 0) return true;
+            if (bid < 3)
+            {
+                int c = bidding.Count;
+                if (bid == 1)
+                {
+                    if (bidding[c - 1].id > 2) return true;
+                    if (bidding[c - 1].id == 0 && bidding[c - 2].id == 0 && bidding[c - 3].id > 2) return true;
+                    return false;
+                }
+                else
+                {
+                    if (bidding[c - 1].id == 1) return true;
+                    if (bidding[c - 1].id == 0 && bidding[c - 2].id == 0 && bidding[c - 3].id == 1) return true;
+                    return false;
+                }
+            }
+            else
+            {
+                if (bid > 37) return false;
+                if (bid <= GetLastBidId()) return false;
+                return true;
+            }
+        }
+
+        public virtual bool IsPlayValid(int card)
+        {
+            return distribution[card] == GetPlayerOnTurn();
+        }
+
+        #endregion
+
+        #region Get Methods
+
+        public virtual Contract GetContract()
+        {
+            if (!IsBiddingOver()) return null;
+
+            int contractId = GetLastBidId();
+
+            int supplement = bidding[bidding.Count - 4].id;
+            supplement = supplement == contractId ? 0 : supplement;
+
+            int decl_side = -1;
+            foreach (Bid bid in bidding) if (bid.id == contractId) decl_side = bid.bidBy % 2;
+            int declarer = -1;
+            foreach (Bid bid in bidding) if (bid.id % 5 == contractId % 5 && bid.bidBy % 2 == decl_side) declarer = bid.bidBy;
+
+            bool vul = true;
+            int c1 = (id - 1) % 4;
+            int c2 = ((id - 1) / 4) % 4;
+            if ((c1 + c2) % 4 == 0) vul = false;
+            if ((c1 + c2) % 4 == 1) vul = decl_side == 0;
+            if ((c1 + c2) % 4 == 2) vul = decl_side == 1;
+            if ((c1 + c2) % 4 == 3) vul = true;
+
+            Contract contract = new Contract(contractId, supplement, vul, declarer);
+            return contract;
+        }
+
+        public virtual int GetLeader()
+        {
+            if (!IsBiddingOver()) throw new Exception("Bidding is not over");
+            return (GetContract().declarer + 1) % 4;
+        }
+
+        public virtual int GetNSTricks()
+        {
+            int tricks = 0;
+            for (int trick = 0; trick < play.Count / 4; trick++)
+            {
+                int winner = EvalTrick(play[trick * 4], play[trick * 4 + 1], play[trick * 4 + 2], play[trick * 4 + 3]);
+                if (winner % 2 == 0) tricks++;
+            }
+            return tricks;
+        }
+
+        public virtual int GetEWTricks()
+        {
+            int tricks = 0;
+            for (int trick = 0; trick < play.Count / 4; trick++)
+            {
+                int winner = EvalTrick(play[trick * 4], play[trick * 4 + 1], play[trick * 4 + 2], play[trick * 4 + 3]);
+                if (winner % 2 == 1) tricks++;
+            }
+            return tricks;
+        }
+
+        public virtual int GetPlayerOnTurn()
+        {
+            if (bidding.Count == 0) return (id - 1) % 4;
+            if (GetContract() == null) return (bidding[bidding.Count - 1].bidBy + 1) % 4;
+            if (play.Count % 4 != 0) return (play[play.Count - 1].playedBy + 1) % 4;
+            if (play.Count == 0) return (GetContract().declarer + 1) % 4;
+            int c = play.Count;
+            return EvalTrick(play[c - 4], play[c - 3], play[c - 2], play[c - 1]);
+        }
+
+        public virtual int GetTrump()
+        {
+            return (GetLastBidId() - 3) % 5;
+        }
+
+        public virtual int GetLastBidId()
+        {
+            if (bidding.Count == 0) return 0;
             for (int i = bidding.Count - 1; i >= 0; i--)
             {
                 if (bidding[i].id > 2) return bidding[i].id;
@@ -239,55 +187,54 @@ namespace BridgeUtilities
             return 0;
         }
 
+        public virtual string GetCmds()
+        {
+            return string.Join(" ", play);
+        }
+
+        public virtual List<int> GetPlayableCards()
+        {
+            List<int> playable = new List<int>();
+            for (int i = 0; i < 52; i++)
+            {
+                if (IsPlayValid(i)) playable.Add(i);
+            }
+            return playable;
+        }
+
+        public virtual List<int> GetAvailableBids()
+        {
+            List<int> bids = new List<int>();
+            for (int i = 0; i < 38; i++)
+            {
+                if (IsBidValid(i)) bids.Add(i);
+            }
+            return bids;
+        }
+
         #endregion
 
-        #region Public methods
-
-        /// <summary>
-        /// Makes the specified bid (by id)
-        /// </summary>
-        /// <param name="id"> The id of the bid made</param>
-        public void MakeBid(int id)
+        #region Game Logic
+        public virtual void Play(int card)
         {
-            if (!GetAvailableBids().Contains(id) || !isBiddingState) throw new ArgumentException("Bid is not valid in the current bidding state!");
-            Bid bid = new Bid(id)
+            if (!IsPlayValid(card)) throw new Exception("Invalid play");
+            if (!IsBiddingOver()) throw new Exception("Bidding is not over");
+            cards[card].playedBy = GetPlayerOnTurn();
+            play.Add(cards[card]);
+            distribution[card] = -1;
+        }
+
+        public virtual void Bid(int bid)
+        {
+            if (!IsBidValid(bid)) throw new Exception("Invalid Bid");
+            if (IsBiddingOver()) throw new Exception("Bidding is over");
+            Bid _bid = new Bid(id)
             {
-                bidBy = (this.id + bidding.Count - 1) % 4
+                bidBy = GetPlayerOnTurn()
             };
-            bidding.Add(bid);
-            if (IsBiddingOver())
-            {
-                EnterPlayState();
-            }
+            bidding.Add(_bid);
         }
-
-        public void EnterPlayState()
-        {
-            UpdateAll();
-            isBiddingState = false;
-        }
-
-        /// <summary>
-        /// Plays the specifies card (by id)
-        /// </summary>
-        /// <param name="id"> The id of the played card</param>
-        public void PlayCard(int id)
-        {
-            if (isBiddingState) throw new Exception("Bidding is not over - cannot play card!");
-            if (!GetPlayableCards().Contains(id)) throw new Exception("Unplayable card");
-            Console.WriteLine("Playing card: " + cards[id]);
-            play.Add(cards[id]);
-            cards[id].playedBy = distribution[id];
-            distribution[id] = -1;
-            UpdatePlayerOnTurn();
-        }
-
-        
-
-        /// <summary>
-        /// Undos the last action
-        /// </summary>
-        public void Undo()
+        public virtual void Undo()
         {
             if (play.Count == 0 && bidding.Count == 0) throw new Exception("Cannot undo at the beginning of the deal");
             if (play.Count == 0) bidding.RemoveAt(bidding.Count - 1);
@@ -298,71 +245,17 @@ namespace BridgeUtilities
                 card.playedBy = -1;
                 play.RemoveAt(play.Count - 1);
             }
-
-            // Update data - OPTIMIZE!! - CURRENTLY GOES THROUGH WHOLE BIDDING AND WHOLE PLAY 
-            UpdateAll();
-            isBiddingState = !IsBiddingOver();
         }
 
-        /// <summary>
-        /// </summary>
-        /// <returns> A list of all playable cards id</returns>
-        public List<int> GetPlayableCards()
+        public virtual int EvalTrick(Card card1, Card card2, Card card3, Card card4)
         {
-            UpdatePlayerOnTurn();
-            List<int> playable = new List<int>();
-            if (isBiddingState) return playable;
-            string suitOnLead = GetSuitOnLead();
-            for (int i = 0; i < 52; i++)
-            {
-                if (distribution[i] == playerOnTurn && (suitOnLead == null || SUITS[i / 13].ToString() == suitOnLead || !PlayerHasSuit(playerOnTurn, SUITS.IndexOf(suitOnLead)))) playable.Add(i);
-            }
-            return playable;
+            string s = card1.suit;
+            string t = "CDHSN"[GetTrump()].ToString();
+            return card1.Compare(card2, s, t).Compare(card3, s, t).Compare(card4, s, t).playedBy;
         }
+        #endregion
 
-        public List<int> GetAvailableBids()
-        {
-            List<int> bids = new List<int>();
-            bids.Add(0);
-            for (int i = GetLastBidId(); i < 38; i++)
-            {
-                bids.Add(i);
-            }
-            if (bidding.Count == 0) return bids;
-            if (bidding[bidding.Count - 1].id > 2 || (bidding.Count > 2 && (bidding[bidding.Count - 1].id == 0 && bidding[bidding.Count - 2].id == 0 && bidding[bidding.Count - 3].id > 2)))
-            {
-                bids.Add(1);
-            }
-            if (bidding[bidding.Count - 1].id == 1 || (bidding.Count > 2 && (bidding[bidding.Count - 1].id == 0 && bidding[bidding.Count - 2].id == 0 && bidding[bidding.Count - 3].id == 1)))
-            {
-                bids.Add(2);
-            }
-            
-            return bids;
-        }
-
-
-        public string GetCmds()
-        {
-            return string.Join(" ", play);
-        }
-
-        /// <summary>
-        /// Updates all data according to the play and bidding - Tricks, trump, player on turn.
-        /// </summary>
-        public void UpdateAll()
-        {
-            // sets trumpsuit
-            UpdateTrump();
-
-            // sets number of tricks
-            UpdateTricks();
-
-            // sets player on turn
-            UpdatePlayerOnTurn();
-        }
-
-
+        #region Logging
         public override string ToString()
         {
             string res = $"{id}|";
@@ -386,7 +279,7 @@ namespace BridgeUtilities
             return res;
         }
 
-        public string ToDDFormat()
+        public virtual string ToDDFormat()
         {
             string[] hands = new string[4] { "", "", "", "" };
             for (int i = 51; i >= 0; i--)
@@ -406,7 +299,7 @@ namespace BridgeUtilities
         /// <summary>
         /// Prints the whole deal in it's current state in readable format
         /// </summary>
-        public void Print()
+        public virtual void Print()
         {
 
             // TODO: MAKE COMMENTS
@@ -449,6 +342,24 @@ namespace BridgeUtilities
                 Console.WriteLine();
             }
         }
+        #endregion
+
+        #endregion
+
+        #region Abstract Methods
+        /*
+        public abstract int GetPlayerOnTurn();
+        public abstract int GetTrump();
+        public abstract Contract GetContract();
+        public abstract int EvalTrick(Card card1, Card card2, Card card3, Card card4);
+        public abstract bool IsPlayValid(int card);
+        public abstract bool IsBidValid(int bid);
+        */
+
+        #endregion
+
+        #region Private Methods
+
 
         #endregion
     }

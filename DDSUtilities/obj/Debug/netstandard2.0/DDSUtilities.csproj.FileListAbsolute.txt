@@ -7,3 +7,12 @@ C:\Users\casto\source\repos\Bridge\DDSUtilities\obj\Debug\netstandard2.0\DDSUtil
 C:\Users\casto\source\repos\Bridge\DDSUtilities\obj\Debug\netstandard2.0\DDSUtilities.csproj.CoreCompileInputs.cache
 C:\Users\casto\source\repos\Bridge\DDSUtilities\obj\Debug\netstandard2.0\DDSUtilities.dll
 C:\Users\casto\source\repos\Bridge\DDSUtilities\obj\Debug\netstandard2.0\DDSUtilities.pdb
+C:\Users\casto\OneDrive\Skrivbord\Prog Files\BridgeUtils\DDSUtilities\bin\Debug\netstandard2.0\DDSUtilities.deps.json
+C:\Users\casto\OneDrive\Skrivbord\Prog Files\BridgeUtils\DDSUtilities\bin\Debug\netstandard2.0\DDSUtilities.dll
+C:\Users\casto\OneDrive\Skrivbord\Prog Files\BridgeUtils\DDSUtilities\bin\Debug\netstandard2.0\DDSUtilities.pdb
+C:\Users\casto\OneDrive\Skrivbord\Prog Files\BridgeUtils\DDSUtilities\obj\Debug\netstandard2.0\DDSUtilities.csprojAssemblyReference.cache
+C:\Users\casto\OneDrive\Skrivbord\Prog Files\BridgeUtils\DDSUtilities\obj\Debug\netstandard2.0\DDSUtilities.AssemblyInfoInputs.cache
+C:\Users\casto\OneDrive\Skrivbord\Prog Files\BridgeUtils\DDSUtilities\obj\Debug\netstandard2.0\DDSUtilities.AssemblyInfo.cs
+C:\Users\casto\OneDrive\Skrivbord\Prog Files\BridgeUtils\DDSUtilities\obj\Debug\netstandard2.0\DDSUtilities.csproj.CoreCompileInputs.cache
+C:\Users\casto\OneDrive\Skrivbord\Prog Files\BridgeUtils\DDSUtilities\obj\Debug\netstandard2.0\DDSUtilities.dll
+C:\Users\casto\OneDrive\Skrivbord\Prog Files\BridgeUtils\DDSUtilities\obj\Debug\netstandard2.0\DDSUtilities.pdb

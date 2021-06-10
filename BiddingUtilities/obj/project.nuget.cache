@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "cACvOPm2oiTSmWfe5WdUe5dc1piABljhkLJoqTPf/tQPsX3eVXeqQcqXFl8MweTabsAFH+il4X1/DgrcqjS9/g==",
+  "dgSpecHash": "BhmcL9nn25tgPlaiC++VPIYaROPKt9cgXQMnHt87NpdPZbE3ZGd0Y+t9MVw7zPuCbgZRY7pOsp4KDnTTNC46dQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\casto\\source\\repos\\Bridge\\BiddingUtilities\\BiddingUtilities.csproj",
+  "projectFilePath": "C:\\Users\\casto\\OneDrive\\Skrivbord\\Prog Files\\BridgeUtils\\BiddingUtilities\\BiddingUtilities.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\casto\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
     "C:\\Users\\casto\\.nuget\\packages\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512"
