@@ -16,3 +16,6 @@ C:\Users\casto\OneDrive\Skrivbord\Prog Files\BridgeUtils\DDSUtilities\obj\Debug\
 C:\Users\casto\OneDrive\Skrivbord\Prog Files\BridgeUtils\DDSUtilities\obj\Debug\netstandard2.0\DDSUtilities.csproj.CoreCompileInputs.cache
 C:\Users\casto\OneDrive\Skrivbord\Prog Files\BridgeUtils\DDSUtilities\obj\Debug\netstandard2.0\DDSUtilities.dll
 C:\Users\casto\OneDrive\Skrivbord\Prog Files\BridgeUtils\DDSUtilities\obj\Debug\netstandard2.0\DDSUtilities.pdb
+C:\Users\casto\OneDrive\Skrivbord\Prog Files\BridgeUtils\DDSUtilities\bin\Debug\netstandard2.0\BridgeUtilities.dll
+C:\Users\casto\OneDrive\Skrivbord\Prog Files\BridgeUtils\DDSUtilities\bin\Debug\netstandard2.0\BridgeUtilities.pdb
+C:\Users\casto\OneDrive\Skrivbord\Prog Files\BridgeUtils\DDSUtilities\obj\Debug\netstandard2.0\DDSUtilities.csproj.CopyComplete

@@ -30,6 +30,9 @@
         }
       },
       "DDSUtilities/1.0.0": {
+        "dependencies": {
+          "BridgeUtilities": "1.0.0"
+        },
         "runtime": {
           "DDSUtilities.dll": {}
         }

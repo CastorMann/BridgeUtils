@@ -30,7 +30,7 @@ namespace BridgeUtilities
         public void Send(Card[] cards)
         {
             if (cards.Length == 0 || cards.Length > 4) throw new Exception("Unsupported number of cards to send");
-            //TODO: check if all same suit
+            foreach (Card card in cards) if (card.suit != cards[0].suit) throw new Exception("All cards must be of the same suit");
             foreach (Card card in cards)
             {
                 distribution[card.id] = (distribution[card.id] + 1) % 4;

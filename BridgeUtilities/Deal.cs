@@ -16,6 +16,11 @@ namespace BridgeUtilities
         public List<Card> play = new List<Card>();
         #endregion
 
+        #region Constructors
+
+
+        #endregion
+
         #region Public Methods
 
         #region Utilities
@@ -34,8 +39,15 @@ namespace BridgeUtilities
         {
             Contract contract = GetContract();
             if (contract == null) throw new Exception("Bidding is not over");
-            if (NSTricks + EWTricks != 13) throw new Exception("Play is not over");
-            return contract.Score(contract.declarer % 2 == 0 ? NSTricks : EWTricks);
+            if (GetNSTricks() + GetEWTricks() != 13) throw new Exception("Play is not over");
+            return contract.Score(contract.declarer % 2 == 0 ? GetNSTricks() : GetEWTricks());
+        }
+
+        public virtual int Score(int tricks)
+        {
+            Contract contract = GetContract();
+            if (contract == null) throw new Exception("Bidding is not over");
+            return contract.Score(tricks);
         }
 
         public virtual void Shuffle()
@@ -46,6 +58,39 @@ namespace BridgeUtilities
                 int temp = distribution[idx];
                 distribution[idx] = distribution[i];
                 distribution[i] = temp;
+            }
+            for (int i = 0; i < 52; i++)
+            {
+                original_distribution[i] = distribution[i];
+            }
+        }
+
+        public virtual void Shuffle(List<int> exceptions)
+        {
+            List<int> unfixed = new List<int>();
+
+            for (int i = 0; i < 52; i++)
+            {
+                if (exceptions.Contains(i)) continue;
+                unfixed.Add(distribution[i]);
+            }
+            int[] arr = unfixed.ToArray();
+            for (int i = 0; i < arr.Length; i++)
+            {
+                int idx = new Random().Next(i, arr.Length);
+                int temp = arr[idx];
+                arr[idx] = arr[i];
+                arr[i] = temp;
+            }
+            int c = 0;
+            for (int i = 0; i < 52; i++)
+            {
+                if (exceptions.Contains(i))
+                {
+                    c++;
+                    continue;
+                }
+                distribution[i] = arr[i - c];
             }
             for (int i = 0; i < 52; i++)
             {
@@ -78,6 +123,7 @@ namespace BridgeUtilities
             if (bid < 3)
             {
                 int c = bidding.Count;
+                if (c == 0) return false;
                 if (bid == 1)
                 {
                     if (bidding[c - 1].id > 2) return true;
@@ -228,7 +274,7 @@ namespace BridgeUtilities
         {
             if (!IsBidValid(bid)) throw new Exception("Invalid Bid");
             if (IsBiddingOver()) throw new Exception("Bidding is over");
-            Bid _bid = new Bid(id)
+            Bid _bid = new Bid(bid)
             {
                 bidBy = GetPlayerOnTurn()
             };

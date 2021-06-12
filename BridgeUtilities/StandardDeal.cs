@@ -41,5 +41,21 @@ namespace BridgeUtilities
             if (preshuffle) Shuffle();
         }
 
+        public StandardDeal(string deal)
+        {
+            string[] data = deal.Split('|');
+            id = int.Parse(data[0]);
+            Setup(id);
+            string[] dist = data[1].Split('.');
+            for (int i = 0; i < 52; i++) distribution[i] = int.Parse(dist[i]);
+            for (int i = 0; i < 52; i++) original_distribution[i] = int.Parse(dist[i]);
+            if (data[2] == "") return;
+            string[] bids = data[2].Split('.');
+            for (int i = 0; i < bids.Length; i++) Bid(int.Parse(bids[i]));
+            if (data[3] == "") return;
+            string[] plays = data[3].Split('.');
+            for (int i = 0; i < plays.Length; i++) Play(int.Parse(plays[i]));
+        }
+
     }
 }

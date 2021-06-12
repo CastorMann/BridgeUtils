@@ -89,7 +89,7 @@ namespace BridgeUtilities
         public Deal Deal(int id)
         {
             // TODO: implement
-            return new Deal(id);
+            return new StandardDeal(id);
         }
 
         /// <summary>

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
+
 namespace BiddingUtilities
 {
     public class SAYC : BiddingSystem { 
@@ -15,8 +16,9 @@ namespace BiddingUtilities
             Add("5", "hcp > 11 and hcp < 22 and hearts > 4 and hearts > spades");
             Add("6", "hcp > 11 and hcp < 22 and spades > 4 and spades >= hearts");
             Add("7", "hcp > 14 and hcp < 18 and spades > 1 and spades < 6 and hearts > 1 and hearts < 6 diamonds > 1 and diamonds < 6 clubs > 1 and clubs < 6"); // 1NT
+            Add("8", "hcp >= 22");
 
-            //TODO 2C+
+            //TODO 2D+
 
             #endregion
 

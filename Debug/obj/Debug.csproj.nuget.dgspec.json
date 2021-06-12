@@ -145,7 +145,11 @@
         "frameworks": {
           "netstandard2.0": {
             "targetAlias": "netstandard2.0",
-            "projectReferences": {}
+            "projectReferences": {
+              "C:\\Users\\casto\\OneDrive\\Skrivbord\\Prog Files\\BridgeUtils\\BridgeUtilities\\BridgeUtilities.csproj": {
+                "projectPath": "C:\\Users\\casto\\OneDrive\\Skrivbord\\Prog Files\\BridgeUtils\\BridgeUtilities\\BridgeUtilities.csproj"
+              }
+            }
           }
         },
         "warningProperties": {
