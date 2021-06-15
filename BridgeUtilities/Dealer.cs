@@ -1,107 +1,161 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using System.Text;
 
 namespace BridgeUtilities
 {
     public class Dealer
     {
-        private string north = "...";
-        private string east = "...";
-        private string south = "...";
-        private string west = "...";
+        private string condition;
 
-        private int[] maxHcp = new int[4];
-        private int[] minHcp = new int[4];
-
-        private int[][] minCards = new int[4][] { new int[4], new int[4], new int[4], new int[4] };
-        private int[][] maxCards = new int[4][] { new int[4], new int[4], new int[4], new int[4] };
-
-        public Dealer()
+        public Dealer(string condition)
         {
-            Reset();
+            CheckConditionErrors(condition);
+            this.condition = condition;
         }
 
-        public void Reset()
+        public Deal GenerateDeal(int id, string predeal = "")
         {
-            north = "...";
-            east = "...";
-            south = "...";
-            west = "...";
+            if (File.Exists("inputFile.txt")) File.Delete("inputFile.txt");
+            CheckPredealErrors(predeal);
 
-            maxHcp = new int[4];
-            minHcp = new int[4];
+            FileStream fileStream = File.Create("inputFile.txt");
+            fileStream.Close();
+            StreamWriter streamWriter = File.CreateText("inputFile.txt");
+            streamWriter.WriteLine("generate 1000000");
+            streamWriter.WriteLine("produce 1");
+            streamWriter.WriteLine(predeal);
+            streamWriter.WriteLine("condition " + condition);
+            streamWriter.WriteLine("action printoneline");
+            streamWriter.Close();
 
-            minCards = new int[4][] { new int[4], new int[4], new int[4], new int[4] };
-            maxCards = new int[4][] { new int[4], new int[4], new int[4], new int[4] };
+            var proc = new Process
+            {
+                StartInfo = new ProcessStartInfo
+                {
+                    FileName = "dealer.exe",
+                    Arguments = "inputFile.txt",
+                    UseShellExecute = false,
+                    RedirectStandardOutput = true,
+                    CreateNoWindow = true
+                }
+            };
+
+            proc.Start();
+            if (proc.StandardOutput.EndOfStream) throw new Exception("Unknown error...");
+            string line = proc.StandardOutput.ReadLine();
+            if (line.StartsWith("Generated")) throw new Exception("Condition error - unable to generate deal");
+            Deal deal = new StandardDeal(id);
+            deal.FromPBN(line);
+
+            File.Delete("inputFile.txt");
+
+            return deal;
         }
 
-        /// <summary>
-        /// Sets constraints for specific cards to be held by specific players;
-        /// </summary>
-        /// <param name="north"></param>
-        /// <param name="east"></param>
-        /// <param name="south"></param>
-        /// <param name="west"></param>
-        /// <returns>this</returns>
-        public Dealer Predeal(string north = "...", string east = "...", string south = "...", string west = "...")
+        public Deal[] GenerateDeals(int numberOfDeals, int startId = 1, string predeal = "")
         {
-            this.north = north;
-            this.east = east;
-            this.south = south;
-            this.west = west;
-            return this;
-        }
+            Deal[] deals = new Deal[numberOfDeals];
 
-        /// <summary>
-        /// Sets constraints for maximum and minimum number of hcp for a specific player
-        /// </summary>
-        /// <param name="player"> The player: 0 -> North, 1 -> East, 2 -> South, 3 -> West </param>
-        /// <param name="max"> Maximum number of hcp (0-37)</param>
-        /// <param name="min"> Minimum number of hcp (0-37)</param>
-        /// <returns>this</returns>
-        public Dealer Hcp(int player, int min = 37, int max = 0)
-        {
-            maxHcp[player] = max;
-            minHcp[player] = min;
-            return this;
-        }
+            if (File.Exists("inputFile.txt")) File.Delete("inputFile.txt");
+            CheckPredealErrors(predeal);
+            if (numberOfDeals > 1000) throw new Exception("Cannot generate more than 1000 deals");
 
-        /// <summary>
-        /// Sets constraints for maximum and minimum number of cards for a specific suit for a specific player
-        /// </summary>
-        /// <param name="player"></param>
-        /// <param name="suit"></param>
-        /// <param name="min"></param>
-        /// <param name="max"></param>
-        /// <returns>this</returns>
-        public Dealer Cards(int player, int suit, int min = 0, int max = 13)
-        {
-            maxCards[player][suit] = max;
-            minCards[player][suit] = min;
-            return this;
-        }
+            FileStream fileStream = File.Create("inputFile.txt");
+            fileStream.Close();
+            StreamWriter streamWriter = File.CreateText("inputFile.txt");
+            streamWriter.WriteLine("generate 10000000");
+            streamWriter.WriteLine("produce " + numberOfDeals);
+            //streamWriter.WriteLine(predeal);
+            streamWriter.WriteLine("condition " + condition);
+            streamWriter.WriteLine("action printoneline");
+            streamWriter.Close();
 
-        /// <summary>
-        /// Constructs a Deal according to current constraints
-        /// </summary>
-        /// <returns> A new deal that fits the constraints </returns>
-        public Deal Deal(int id)
-        {
-            // TODO: implement
-            return new StandardDeal(id);
-        }
+            var proc = new Process
+            {
+                StartInfo = new ProcessStartInfo
+                {
+                    FileName = "dealer.exe",
+                    Arguments = "inputFile.txt",
+                    UseShellExecute = false,
+                    RedirectStandardOutput = true,
+                    CreateNoWindow = true
+                }
+            };
 
-        /// <summary>
-        /// Generates a number of deals according to current constraints
-        /// </summary>
-        /// <param name="nbrOfDeals"> The number of deals to be generated </param>
-        /// <returns> An array of deals that fit the constraints </returns>
-        public Deal[] Deal(int nbrOfDeals, int fromId)
-        {
-            // TODO: add assertions of boundries for number of deals to generate + implement
-            Deal[] deals = new Deal[nbrOfDeals];
+            proc.Start();
+
+            int i = 0;
+            while (!proc.StandardOutput.EndOfStream)
+            {
+                string line = proc.StandardOutput.ReadLine();
+                if (line.StartsWith("Generated")) break;
+                Deal deal = new StandardDeal(i + startId);
+                deal.FromPBN(line);
+                
+                deals[i] = deal;
+                i++;
+            }
+            
+            File.Delete("inputFile.txt");
+
             return deals;
+        }
+       
+        public Deal[] SimulateDeals(int id, int numberOfDeals, string predeal)
+        {
+            Deal[] deals = new Deal[numberOfDeals];
+
+            if (File.Exists("inputFile.txt")) File.Delete("inputFile.txt");
+            CheckPredealErrors(predeal);
+
+            FileStream fileStream = File.Create("inputFile.txt");
+            fileStream.Close();
+            StreamWriter streamWriter = File.CreateText("inputFile.txt");
+            streamWriter.WriteLine("generate " + numberOfDeals);
+            streamWriter.WriteLine("produce " + numberOfDeals);
+            streamWriter.WriteLine(predeal);
+            streamWriter.WriteLine("action printoneline");
+            streamWriter.Close();
+
+            var proc = new Process
+            {
+                StartInfo = new ProcessStartInfo
+                {
+                    FileName = "dealer.exe",
+                    Arguments = "inputFile.txt",
+                    UseShellExecute = false,
+                    RedirectStandardOutput = true,
+                    CreateNoWindow = true
+                }
+            };
+
+            proc.Start();
+
+            for (int i = 0; i < numberOfDeals; i++)
+            {
+                string line = proc.StandardOutput.ReadLine();
+                Deal deal = new StandardDeal(id);
+                deal.FromPBN(line);
+
+                deals[i] = deal;
+            }
+
+            File.Delete("inputFile.txt");
+
+            return deals;
+        }
+
+        private void CheckPredealErrors(string predeal)
+        {
+            //throw new NotImplementedException();
+        }
+
+        private void CheckConditionErrors(string condition)
+        {
+            //throw new NotImplementedException();
         }
     }
 }

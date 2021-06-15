@@ -18,6 +18,50 @@ namespace BridgeUtilities
 
         #region Constructors
 
+        public virtual void FromPBN(string pbn)
+        {
+            bidding.Clear();
+            play.Clear();
+
+            string[] data = pbn.Split(' ');
+            string[] north = data[1].Split('.');
+            string[] east = data[3].Split('.');
+            string[] south = data[5].Split('.');
+            string[] west = data[7].Split('.');
+
+            string[][] hands = new string[][] { north, east, south, west };
+
+            for (int i = 0; i < 4; i++)
+            {
+                string[] curr = hands[i];
+                for (int j = 0; j < 4; j++)
+                {
+                    string suit = curr[j];
+
+                    foreach (char c in suit)
+                    {
+                        int value;
+                        if (c == '2') value = 0;
+                        else if (c == '3') value = 1;
+                        else if (c == '4') value = 2;
+                        else if (c == '5') value = 3;
+                        else if (c == '6') value = 4;
+                        else if (c == '7') value = 5;
+                        else if (c == '8') value = 6;
+                        else if (c == '9') value = 7;
+                        else if (c == 'T') value = 8;
+                        else if (c == 'J') value = 9;
+                        else if (c == 'Q') value = 10;
+                        else if (c == 'K') value = 11;
+                        else if (c == 'A') value = 12;
+                        else throw new Exception("Wrong format of PBN string");
+                        int idx = 13 * (3 - j) + value;
+                        distribution[idx] = i;
+                        original_distribution[idx] = i;
+                    }
+                }
+            }
+        }
 
         #endregion
 
@@ -208,6 +252,65 @@ namespace BridgeUtilities
             return tricks;
         }
 
+        public virtual string GetNorthHandAsString(bool original = false)
+        {
+            return GetHand(0, original);
+        }
+
+        public virtual string GetEastHandAsString(bool original = false)
+        {
+            return GetHand(1, original);
+        }
+
+        public virtual string GetSouthHandAsString(bool original = false)
+        {
+            return GetHand(2, original);
+        }
+
+        public virtual string GetWestHandAsString(bool original = false)
+        {
+            return GetHand(3, original);
+        }
+
+        public virtual string GetHandAsPredealFormat(int id)
+        {
+            string res = "predeal ";
+            res += id == 0 ? "north " : id == 1 ? "east " : id == 2 ? "south " : "west ";
+            for (int i = 0; i < 4; i++)
+            {
+                res += "SHDC"[i].ToString();
+                for (int j = 12; j >= 0; j--)
+                {
+                    if (original_distribution[13 * i + j] == id) res += "23456789TJQKA"[j].ToString();
+                }
+                if (i != 3) res += ", ";
+            }
+            return res;
+        }
+
+        public virtual string GetCardsAsPredealFormat(List<int> knownCards)
+        {
+            string res = "";
+            for (int id = 0; id < 4; id++)
+            {
+                res += "predeal ";
+                res += id == 0 ? "north " : id == 1 ? "east " : id == 2 ? "south " : "west ";
+                for (int i = 3; i >= 0; i--)
+                {
+                    res += "CDHS"[i].ToString();
+                    for (int j = 12; j >= 0; j--)
+                    {
+                        if (original_distribution[13 * i + j] == id && knownCards.Contains(13 * i + j)) res += "23456789TJQKA"[j].ToString();
+                    }
+                    if (i != 0) res += ", ";
+                }
+                if (id != 3) res += "\n";
+            }
+            
+            return res;
+        }
+
+
         public virtual int GetPlayerOnTurn()
         {
             if (bidding.Count == 0) return (id - 1) % 4;
@@ -325,7 +428,7 @@ namespace BridgeUtilities
             return res;
         }
 
-        public virtual string ToDDFormat()
+        public virtual string ToPBN()
         {
             string[] hands = new string[4] { "", "", "", "" };
             for (int i = 51; i >= 0; i--)
@@ -406,6 +509,20 @@ namespace BridgeUtilities
 
         #region Private Methods
 
+        private string GetHand(int id, bool original)
+        {
+            string res = "";
+
+            for (int i = 0; i < 52; i++)
+            {
+                if ((original ? original_distribution[i] : distribution[i]) == id)
+                {
+                    res += i.ToString();
+                    if (res.Split('.').Length < 13) res += ".";
+                }
+            }
+            return res;
+        }
 
         #endregion
     }

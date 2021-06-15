@@ -31,7 +31,7 @@ namespace DDSUtilities
             for (int i = 0; i < SKILL_LEVEL; i++)
             {
                 deal.Shuffle(cards);
-                DoubleDummySolver dds = new DoubleDummySolver(deal.ToDDFormat(), deal.GetCmds(), deal.GetLeader(), deal.GetTrump());
+                DoubleDummySolver dds = new DoubleDummySolver(deal.ToPBN(), deal.GetCmds(), deal.GetLeader(), deal.GetTrump());
                 for (int j = 0; j < playable.Count; j++)
                 {
                     int tricks = dds.GetTricksEx(CARDS[playable[j]]);
