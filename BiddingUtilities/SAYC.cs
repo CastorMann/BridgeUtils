@@ -1,41 +1,51 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-
+using System.IO;
+using System.Text.RegularExpressions;
 
 namespace BiddingUtilities
 {
     public class SAYC : BiddingSystem { 
-        public void Build()
+
+        public SAYC(string inputFile)
         {
-            #region Opening Bids
+            Build(inputFile);
+        }
+        public void Build(string inputFile)
+        {
+            if (!File.Exists(inputFile)) throw new Exception("File could not be found");
 
-            Add("0", "hcp < 12");   // pass TODO: "spades < 6 and hearts < 6 and diamonds < 6 and clubs < 6" or suit quality low depending on vuln
-            Add("3", "hcp > 11 and hcp < 22 and clubs > 2 and clubs >= diamonds and hearts < 5 and spades < 5"); // 1C, TODO: "or clubs > spades and clubs > hearts"
-            Add("4", "hcp > 11 and hcp < 22 and dimaonds > 2 and dimaonds >= clubs and hearts < 5 and spades < 5"); // 1D
-            Add("5", "hcp > 11 and hcp < 22 and hearts > 4 and hearts > spades");
-            Add("6", "hcp > 11 and hcp < 22 and spades > 4 and spades >= hearts");
-            Add("7", "hcp > 14 and hcp < 18 and spades > 1 and spades < 6 and hearts > 1 and hearts < 6 diamonds > 1 and diamonds < 6 clubs > 1 and clubs < 6"); // 1NT
-            Add("8", "hcp >= 22");
+            string[] lines = File.ReadAllLines(inputFile);
 
-            //TODO 2D+
+            foreach(string line in lines)
+            {
+                if (line.StartsWith("#")) continue;
+                if (!line.Contains(":")) continue;
+                string[] data = line.Split(':');
+                string sequence = data[0];
+                string condition = data[1];
 
-            #endregion
+                HashSet<string> seqs = new HashSet<string>();
 
-            #region First Response
-
-            #region 1C Responses
-
-            Add("3.0.0", "hcp < 6"); // 1C - pass
-            Add("3.0.4", "hcp > 5 and diamonds > 3 and diamonds > hearts and diamonds > spades"); // 1C - 1D
-            Add("3.0.5", "hcp > 5 and hearts > 3 and hearts >= spades"); // 1C - 1H
-            Add("3.0.6", "hcp > 5 and spades > 3 and spades >= hearts"); // 1C - 1S
-            
-            //TODO: 1C - 1NT+
-
-            #endregion
-
-            #endregion
+                foreach (char m in new char[] { 'C', 'D' }) 
+                {
+                    foreach (char M in new char[] { 'H', 'S' })
+                    {
+                        foreach (char X in new char[] { 'C', 'D', 'H', 'S' })
+                        {
+                            string oM = M == 'H' ? "S" : "H";
+                            string om = m == 'C' ? "D" : "C";
+                            string cM = m == 'C' ? "H" : "S";
+                            string cm = M == 'H' ? "C" : "D";
+                            string newSeq = sequence.Replace("om", om).Replace("oM", oM).Replace("cm", cm).Replace("cM", cm).Replace('m', m).Replace('M', M).Replace('X', X);
+                            string newCon = condition.Replace("om", om).Replace("oM", oM).Replace("cm", cm).Replace("cM", cm).Replace('m', m).Replace('M', M).Replace('X', X);
+                            seqs.Add(newSeq);
+                            if (!BidMap.ContainsKey(newSeq)) BidMap.Add(newSeq.Trim(), newCon.Trim());
+                        }
+                    }
+                }
+            }
         }
     }
 }

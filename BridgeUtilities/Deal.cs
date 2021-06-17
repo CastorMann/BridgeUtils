@@ -191,7 +191,10 @@ namespace BridgeUtilities
 
         public virtual bool IsPlayValid(int card)
         {
-            return distribution[card] == GetPlayerOnTurn();
+            int suitOnLead = GetSuitOnLead();
+            bool cardIsInHand = distribution[card] == GetPlayerOnTurn();
+            bool hasSuit = suitOnLead == 4 || PlayerHasSuit(GetPlayerOnTurn(), suitOnLead);
+            return cardIsInHand && (play.Count % 4 == 0 || card / 13 == suitOnLead || !hasSuit);
         }
 
         #endregion
@@ -228,6 +231,12 @@ namespace BridgeUtilities
         {
             if (!IsBiddingOver()) throw new Exception("Bidding is not over");
             return (GetContract().declarer + 1) % 4;
+        }
+
+        public virtual int GetSuitOnLead()
+        {
+            if (play.Count % 4 == 0) return 4;
+            return play[play.Count - (play.Count % 4)].id / 13;
         }
 
         public virtual int GetNSTricks()
@@ -307,6 +316,16 @@ namespace BridgeUtilities
                 if (id != 3) res += "\n";
             }
             
+            return res;
+        }
+
+        public virtual List<int> GetHandAsList(int id)
+        {
+            List<int> res = new List<int>();
+            for (int i = 0; i < 52; i++)
+            {
+                if (original_distribution[i] == id) res.Add(i);
+            }
             return res;
         }
 

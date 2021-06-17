@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Collections.Generic;
 using BridgeUtilities;
 using DDSUtilities;
+using BiddingUtilities;
 
 namespace Debug
 {
@@ -15,7 +16,7 @@ namespace Debug
             "2H", "3H", "4H", "5H", "6H", "7H", "8H", "9H", "TH", "JH", "QH", "KH", "AH",
             "2S", "3S", "4S", "5S", "6S", "7S", "8S", "9S", "TS", "JS", "QS", "KS", "AS", };
 
-        static void Parse(string hand, string constraints)
+        static bool Parse(string hand, string constraints)
         {
             var proc = new Process
             {
@@ -30,11 +31,8 @@ namespace Debug
             };
 
             proc.Start();
-            while (!proc.StandardOutput.EndOfStream)
-            {
-                string line = proc.StandardOutput.ReadLine();
-                Console.WriteLine(line);
-            }
+            string line = proc.StandardOutput.ReadLine();
+            return line == "True";
         }
 
         static void RunDealer(string inputFile, string outputFile)
@@ -66,16 +64,28 @@ namespace Debug
         }
         static void Main(string[] args)
         {
-            Dealer dealer = new Dealer("shape(north, any 4333 + any 4432 + any 5332 - 5xxx - x5xx) and hcp(north) > 14 and hcp(north) < 18");
-            Deal[] deals = dealer.SimulateDeals(1, 20, "predeal north SAKQJ, HA5432, DA2, CA2");
-            foreach (Deal deal in deals)
+            BiddingSystem sys = new SAYC("TwoOverOne.txt");
+            for (int i = 0; i < 10; i++)
             {
+                Dealer dealer = new Dealer("spades(north) % 3 == 0 and spades(north) != 3 and hcp(north) % 5 == 0");
+                Deal deal = dealer.GenerateDeal(1);
                 deal.Print();
-                List<int> knownCards = new List<int>();
-                for (int i = 0; i < 52; i++) knownCards.Add(i);
-                Console.WriteLine(deal.GetCardsAsPredealFormat(knownCards));
+                string hand = deal.GetNorthHandAsString();
+                foreach (string bid in new string[] {
+                "1N", "2N", "1S", "1H", "1D",
+                "1C", "2S", "2H", "2D", "2C",
+                "3C", "3D", "3H", "3S", "3N",
+                "4C", "4D", "4H", "4S", "pass"})
+                {
+                    if (Parse(hand, sys.BidMap[bid]))
+                    {
+                        Console.WriteLine("North opens with " + bid);
+                        break;
+                    }
+
+                }
             }
-                
+            
 
             //BridgeBot bot = new BridgeBot(deal.GetPlayableCards(), deal);
             //Console.WriteLine(CARDS[bot.GetCardToPlay()]);

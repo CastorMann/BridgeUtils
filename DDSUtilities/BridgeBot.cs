@@ -8,7 +8,7 @@ namespace DDSUtilities
     public class BridgeBot
     {
         private List<int> cards;
-        private int SKILL_LEVEL = 200;
+        private int SKILL_LEVEL = 20;
         private Deal deal;
 
         private readonly string[] CARDS = new string[52] {
@@ -26,19 +26,26 @@ namespace DDSUtilities
         public int GetCardToPlay()
         {
             List<int> playable = deal.GetPlayableCards();
+            if (playable.Count == 0) return -1;
             int[] scores = new int[playable.Count];
 
-            for (int i = 0; i < SKILL_LEVEL; i++)
+            Dealer dealer = new Dealer("");
+            List<int> knownCards = new List<int>();
+            foreach (int i in cards) knownCards.Add(i);
+            foreach (Card card in deal.play) knownCards.Add(card.id);
+            foreach (int i in deal.GetHandAsList((deal.GetContract().declarer + 2) % 4)) knownCards.Add(i);
+            Deal[] deals = dealer.SimulateDeals(deal.id, SKILL_LEVEL, deal.GetCardsAsPredealFormat(knownCards));
+
+            for (int i = 0; i < deals.Length; i++)
             {
-                deal.Shuffle(cards);
-                DoubleDummySolver dds = new DoubleDummySolver(deal.ToPBN(), deal.GetCmds(), deal.GetLeader(), deal.GetTrump());
-                for (int j = 0; j < playable.Count; j++)
-                {
-                    int tricks = dds.GetTricksEx(CARDS[playable[j]]);
-                    scores[j] += tricks;    //TODO: add scores instead of tricks
-                }
+                Deal current = deals[i];
+                if (current == null) break;
+
+                DoubleDummySolver dds = new DoubleDummySolver(current.ToPBN(), deal.GetCmds(), deal.GetLeader(), deal.GetTrump());
+                for (int j = 0; j < playable.Count; j++) scores[j] += dds.GetTricksEx(CARDS[playable[j]]);
                 dds.Destroy();
             }
+
             int max = -1;
             int best = -1;
             for (int i = 0; i < scores.Length; i++)

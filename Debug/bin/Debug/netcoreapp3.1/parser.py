@@ -39,6 +39,25 @@ def get_clubs(hand):
         if 0 <= card < 13 : res += 1
     return res
 
+def get_balanced(hand):
+    s = get_spades(hand)
+    h = get_hearts(hand)
+    d = get_diamonds(hand);
+    c = get_clubs(hand);
+    if min([s, h, d, c]) < 2: return False
+    if max([s, h, d, c]) > 5: return False
+    if [s, h, d, c].count(2) == 2: return False
+    return True
+
+def get_semibalanced(hand):
+    s = get_spades(hand)
+    h = get_hearts(hand)
+    d = get_diamonds(hand);
+    c = get_clubs(hand);
+    if min([s, h, d, c]) < 2: return False
+    if max([s, h, d, c]) > 5: return False
+    return True
+
 class Hand:
     def __init__(self, hand):
         self.hcp = get_hcp(hand)
@@ -46,21 +65,29 @@ class Hand:
         self.hearts = get_hearts(hand)
         self.diamonds = get_diamonds(hand)
         self.clubs = get_clubs(hand)
+        self.balanced = get_balanced(hand)
+        self.semibalanced = get_semibalanced(hand)
         # TODO: add self.losers, self.controls, etc
 
 
-def parse(hand, consraints):
+def parse(hand, constraints):
     hand = Hand(hand)
     spades = hand.spades
     hearts = hand.hearts
     diamonds = hand.diamonds
     clubs = hand.clubs
     hcp = hand.hcp
+    balanced = hand.balanced
+    semibalanced = hand.semibalanced
 
-    return eval(consraints)
+    S = spades
+    H = hearts
+    D = diamonds
+    C = clubs
+    return eval(constraints)
 
 
-HAND = "0.1.2.3.4.5.6.7.8.9.10.11.12"
+HAND = "4.5.6.7.9.12.16.22.24.25.44.48.49"
 
 CONSTRAINTS_1 = "clubs > 8 and hcp > 9 and (spades > 3 or diamonds < 5)"
 CONSTRAINTS_2 = "spades > 1"

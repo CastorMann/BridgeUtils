@@ -1,0 +1,62 @@
+#   OPENING BIDS
+pass:           hcp < 11
+1m:             10 < hcp < 22 and m >= 3 and m >= om
+1M:             10 < hcp < 22 and M >= 5 and M >= oM
+1N:             14 < hcp < 18 and balanced
+2C:             hcp >= 22
+2D:             5 < hcp < 10 and D == 6
+2M:             5 < hcp < 10 and M == 6
+2N:             19 < hcp < 22 and balanced
+3X:             5 < hcp < 10 and X == 7
+3N:             hcp >= 25 and balanced
+4X:             hcp < 11 and X >= 8
+
+
+#   FIRST RESPONSE 1 LEVEL
+1C-1D:          hcp >= 6 and D >= 4 and D > max(S, H)
+1m-1M:          hcp >= 6 and M >= 4
+1H-1S:          hcp >= 6 and S >= 4 and (H < 3 or H == 3 and S >= 5)
+1m-1N:          6 <= hcp <= 11 and m < 5
+1M-1N:          6 <= hcp <= 11 and M < 3
+
+
+#   1NT SYSTEM
+1N-2C:          hcp >= 8 
+1N-2D:          H >= 5 and S != 4
+1N-2H:          S >= 5 and H != 4
+1N-2S:          hcp >= 10 and min(C, D) >= 4 and max(C, D) >= 5
+1N-2N:          C >= 6
+1N-3C:          D >= 6
+1N-3D:          hcp >= 10 and D <= 1 and H == S == 4
+1N-3M:          hcp >= 10 and M <= 1 and oM == 4 and min(C, D) == 4
+1N-4m:          hcp >= 10 and cM >= 6
+1N-4M:          10 <= hcp <= 14 and M >= 6
+1N-3N:          10 <= hcp <= 15 and max(H, S) < 4
+1N-4N:          16 <= hcp <= 17 and max(H, S) < 4
+1N-6N:          18 <= hcp <= 19 and max(H, S) < 4
+1N-5N:          20 <= hcp <= 21 and max(H, S) < 4
+1N-7N:          hcp >= 22
+
+1N-2C-2D:       max(H, S) < 4
+1N-2C-2M:       M >= 4
+1N-2C-2N:       hcp < 16 and min(H, S) == 4
+1N-2C-3C:       hcp > 15 and min(H, S) == 4
+
+1N-2C-2D-2M:    8 <= hcp <= 9 and M >= 5 and oM == 4
+1N-2C-2D-2N:    8 <= hcp <= 9
+1N-2C-2D-3m:    hcp >= 10 and m >= 5
+1N-2C-2D-3M:    hcp >= 10 and M == 4 and oM >= 5
+1N-2C-2D-3N:    10 <= hcp <= 15
+1N-2C-2D-4N:    16 <= hcp <= 17
+1N-2C-2D-6N:    18 <= hcp <= 19
+1N-2C-2D-5N:    20 <= hcp <= 21
+1N-2C-2D-7N:    hcp >= 22
+
+1N-2C-2H-2S:    8 <= hcp <= 9 and S == 4
+
+1N-2C-2M-2N:    8 <= hcp <= 9 and M < 4
+1N-2C-2M-3m:    hcp >= 10 and m >= 5 and M < 4
+1N-2C-2M-3M:    8 <= hcp <= 9 and M >= 4
+1N-2C-2M-3oM:   hcp >= 15 and M >= 4 and (balanced or semibalanced)
+1N-2C-2M-3N:    10 <= hcp <= 15 and oM == 4
+1N-2C-2M-4m:    hcp >= 12 and m <= 1 and M >= 4
